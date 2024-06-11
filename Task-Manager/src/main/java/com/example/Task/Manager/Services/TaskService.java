@@ -10,6 +10,6 @@ public interface TaskService {
     Task getTaskId(long taskId);
     Task updateTask(Task task);
     Task addTask(Task task);
-    String removeTask(String taskId);
+    String removeTask(long taskId);
 
 }

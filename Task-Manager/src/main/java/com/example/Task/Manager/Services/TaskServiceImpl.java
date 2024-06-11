@@ -3,9 +3,12 @@ package com.example.Task.Manager.Services;
 import com.example.Task.Manager.Entity.Task;
 import com.example.Task.Manager.Respository.TaskDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class TaskServiceImpl implements TaskService{
     @Autowired
     public TaskDAO task;
@@ -17,7 +20,15 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task getTaskId(long taskId) {
-        return this.task.getReferenceById(taskId);
+        Optional<Task> check = this.task.findById(taskId);
+        Task task = null;
+        if (check.isPresent()){
+            task = check.get();
+        }else{
+            throw new RuntimeException(taskId+ " Not Found");
+        }
+
+        return task;
     }
 
     @Override
@@ -27,7 +38,7 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task addTask(Task task) {
-        return return this.task.save(task);;
+        return this.task.save(task);
     }
 
     @Override

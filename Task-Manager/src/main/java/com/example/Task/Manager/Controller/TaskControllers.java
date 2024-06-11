@@ -3,16 +3,12 @@ package com.example.Task.Manager.Controller;
 import com.example.Task.Manager.Entity.Task;
 import com.example.Task.Manager.Services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-public class TaskController {
+@RestController
+public class TaskControllers{
 
     @Autowired
     public TaskService task;
@@ -32,7 +28,7 @@ public class TaskController {
         return this.task.getTaskId(taskId);
     }
 
-    @PostMapping("/tasks")
+    @PutMapping("/tasks")
     public Task updateTask(@RequestBody Task task){
         return this.task.updateTask(task);
     }
@@ -41,7 +37,7 @@ public class TaskController {
     public Task addTask(@RequestBody Task task){
         return this.task.addTask(task);
     }
-    @PostMapping("/tasks/{taskId}")
+    @DeleteMapping("/tasks/{taskId}")
     public String removeTask(@PathVariable long taskId){
         return this.task.removeTask(taskId);
     }
